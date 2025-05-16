@@ -1,6 +1,6 @@
 public class Loja {
 
-    // Atributos da classe loja.
+    // Atributos da classe Loja.
     private String nome;
     private int quantidadeFuncionarios ;
     private double salarioBaseFuncionario;
