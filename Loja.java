@@ -62,7 +62,7 @@ public class Loja {
     public char tamanhoDaLoja() {
         if (quantidadeFuncionarios <10){
             return 'P';
-        } else if (quantidadeFuncionarios >=10 && quantidadeFuncionarios >=30){
+        } else if (quantidadeFuncionarios >=10 && quantidadeFuncionarios <=30){
             return 'M';
         } else{
             return 'G';
