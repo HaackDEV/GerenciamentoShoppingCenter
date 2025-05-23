@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 public class Produto {
 
     // Atributos da classe Produto.
@@ -5,6 +7,7 @@ public class Produto {
     private double preco;
     private Data dataValidade;
 
+    Scanner teclado = new Scanner(System.in);
 
     // Método construtor.
     public Produto(String nome, double preco, Data dataValiade) {
@@ -42,5 +45,10 @@ public class Produto {
     @Override
     public String toString() {
         return "Produto: " + nome + "\n" + "Preço do produto: R$" + preco + "\n" + "Data de validade: " + dataValidade;
+    }
+    
+    // Método que verifica se a data é menor que a validade e retorna verdadeiro caso o produto esteja vencido.
+    public boolean estaVencido (Data dataReferencia) {
+        return this.dataValidade.verificaDataMenor(dataReferencia);
     }
 }

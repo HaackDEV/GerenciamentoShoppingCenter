@@ -83,4 +83,12 @@ public class Data {
             return true;
         }
     }
+
+    // Função que verifica se a data é menor que a data do parâmetro ou não.
+    public boolean verificaDataMenor (Data outro) { // True == é menor.
+        if (this.ano < outro.ano) return true; 
+        else if (this.ano == outro.ano && this.mes < outro.mes) return true; 
+        else if (this.ano == outro.ano && this.mes == outro.mes && this.dia < outro.dia) return true;
+        else return false;
+    }
 }
