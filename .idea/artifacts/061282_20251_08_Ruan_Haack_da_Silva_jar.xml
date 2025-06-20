@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="061282_20251_08-Ruan_Haack_da_Silva:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/061282_20251_08_Ruan_Haack_da_Silva_jar</output-path>
+    <root id="archive" name="061282_20251_08-Ruan_Haack_da_Silva.jar">
+      <element id="module-output" name="061282_20251_08-Ruan_Haack_da_Silva" />
+    </root>
+  </artifact>
+</component>
