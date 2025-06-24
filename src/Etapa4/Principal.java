@@ -6,14 +6,55 @@ public class Principal {
         Scanner teclado = new Scanner(System.in);
         int opcao;
 
-        Endereco endereçoShopping = new Endereco("Rua dos Bobos", "Porto Alegre", "RS", "Brasil", "99000-100", "0", "Lado b");
-        Shopping shopping1 = new Shopping("Shopping Sinos", endereçoShopping , 19);
+        System.out.println("----- BEM-VINDO AO SISTEMA DE GERENCIAMENTO DE SHOPPING -----\n");
+        System.out.println("Deseja criar um shopping?");
+        System.out.println("Digite um número:");
+        System.out.println("1 - Sim\n2 - Não");
+        opcao = teclado.nextInt();
+        teclado.nextLine(); // Limpa o buffer
+        while (true) {
+            if (opcao == 1) {
+                break;
+            } else {
+                System.out.println("----- Saindo do programa -----");
+                return;
+        }
+    }
+        System.out.println("\t\t----- NOME -----\n");
+        System.out.println("----- Digite o nome do shopping -----\n");
+        String nomeShopping = teclado.nextLine();
+        System.out.println("\t\t----- ENDEREÇO -----\n");
+        System.out.println("----- Digite o nome da rua do shopping -----\n");
+        String ruaShopping = teclado.nextLine();
+        System.out.println("----- Digite a cidade do shopping -----\n");
+        String cidadeShopping = teclado.nextLine();
+        System.out.println("----- Digite o estado do shopping -----\n");
+        String estadoShopping = teclado.nextLine();
+        System.out.println("----- Digite o país do shopping -----\n");
+        String paisShopping = teclado.nextLine();
+        System.out.println("----- Digite o CEP do shopping -----\n");
+        String cepShopping = teclado.nextLine();
+        System.out.println("----- Digite o número do shopping -----\n");
+        String numeroShopping = teclado.nextLine();
+        System.out.println("----- Digite o complemento do shopping -----\n");
+        String complementoShopping = teclado.nextLine();
+
+        Endereco enderecoShopping = new Endereco( ruaShopping, cidadeShopping,  estadoShopping,  paisShopping,  cepShopping,  numeroShopping, complementoShopping);
+
+        System.out.println("\t\t----- TAMANHO -----\n");
+        System.out.println("----- Digite a capacidade máxima de lojas do shopping -----\n");
+        int capacidadeLojas = teclado.nextInt();
+
+
+        Shopping shoppingAtual = new Shopping(nomeShopping, enderecoShopping , capacidadeLojas);
 
         while (true){
-            System.out.println("\tEscolha uma opcao: \n");
+            System.out.println("\t----- Menu do shopping " + shoppingAtual.getNome() + " -----"+ "\n");
             System.out.println(".\t(1) CRIAR UMA LOJA\n");
             System.out.println(".\t(2) CRIAR UM PRODUTO\n");
-            System.out.println(".\t(3) SAIR\n");
+            System.out.println(".\t(3) REMOVER UMA LOJA\n");
+            System.out.println(".\t(4) REMOVER UM PRODUTO\n");
+            System.out.println(".\t(5) SAIR\n");
 
             opcao = teclado.nextInt();
             teclado.nextLine(); // Limpa o buffer
@@ -30,30 +71,6 @@ public class Principal {
                     System.out.println("\n----- Digite o salario base da loja  -----\n");
                     int salarioBase = teclado.nextInt();
                     teclado.nextLine(); // Limpa o buffer
-                    
-                    System.out.println("\n----- Endereco da loja  -----");
-                    System.out.println("\n----- Digite o nome da rua da loja  -----\n");
-                    String nomeRua = teclado.nextLine();
-                    
-                    System.out.println("\n----- Digite a cidade da loja  -----\n");
-                    String cidade = teclado.nextLine();
-                    
-                    System.out.println("\n----- Digite o estado da loja  -----\n");
-                    String estado = teclado.nextLine();
-                    
-                    System.out.println("\n----- Digite o pais da loja  -----\n");
-                    String pais = teclado.nextLine();
-
-                    System.out.println("\n----- Digite o cep da loja  -----\n");
-                    String cep = teclado.nextLine();
-
-                    System.out.println("\n----- Digite o numero da loja  -----\n");
-                    String numero = teclado.nextLine();
-
-                    System.out.println("\n----- Digite o complemento da loja  -----\n");
-                    String complemento = teclado.nextLine();
-
-                    Endereco enderecoLoja = new Endereco(nomeRua, cidade, estado, pais, cep, numero, complemento);
 
                     System.out.println("\n----- Digite o dia da funcacao da loja  -----\n");
                     int dia = teclado.nextInt();
@@ -71,11 +88,93 @@ public class Principal {
                     int tamanhoEstoque = teclado.nextInt();
                     teclado.nextLine(); // Limpa o buffer
 
+                    System.out.println("\n----- Digite o tipo de loja?  -----\n");
+                    System.out.println(".\t(1) Alimentação\n");
+                    System.out.println(".\t(2) Bijuteria\n");
+                    System.out.println(".\t(3) Costméticos\n");
+                    System.out.println(".\t(4) Informática\n");
+                    System.out.println(".\t(5) Vestuário\n");
+                    int tipoLoja = teclado.nextInt();
+                    teclado.nextLine(); // Limpa o buffer
+
                     Data dataFundacao = new Data(dia,mes,ano);
 
-                    Loja loja = new Loja(nomeLoja, salarioBase, funcionariosLoja, enderecoLoja, dataFundacao, tamanhoEstoque);
+                    Loja novaLoja = null;
+                    switch (tipoLoja){
+                        case 1:
+                            System.out.println("\n----- Data do alvará da loja  -----");
+                            System.out.println("\n----- Digite o dia do alvará da loja  -----\n");
+                            int diaAlvara = teclado.nextInt();
+                            teclado.nextLine();
+                            System.out.println("\n----- Digite o mês do alvará da loja  -----\n");
+                            int mesAlvara = teclado.nextInt();
+                            teclado.nextLine();
+                            System.out.println("\n----- Digite o ano do alvará da loja  -----\n");
+                            int anoAlvara = teclado.nextInt();
+                            teclado.nextLine();
+                            Data dataAlvara = new Data(diaAlvara,mesAlvara,anoAlvara);
 
-                    System.out.println("\n" + loja.toString() + "\n");
+                            novaLoja = new Alimentacao(nomeLoja, funcionariosLoja, salarioBase, shoppingAtual.getEndereco(), dataFundacao, dataAlvara, tamanhoEstoque);
+                            break;
+
+                        case 2:
+                            System.out.println("\n----- Meta de vendas da loja  -----\n");
+                            System.out.println("\n----- Digite a meta de vendas por mês da loja  -----\n");
+                            double metaVendas = teclado.nextDouble();
+                            teclado.nextLine();
+
+                            novaLoja = new Bijuteria(nomeLoja, funcionariosLoja, salarioBase, shoppingAtual.getEndereco(), dataFundacao, tamanhoEstoque, metaVendas);
+                            break;
+
+                        case 3:
+                            System.out.println("\n----- Taxa de comercialização da loja  -----\n");
+                            System.out.println("\n----- Digite a taxa de comercialização da loja  -----\n");
+                            double taxaComercializacao = teclado.nextDouble();
+                            teclado.nextLine();
+
+                            novaLoja = new Cosmetico(nomeLoja, funcionariosLoja, salarioBase, shoppingAtual.getEndereco(), dataFundacao, tamanhoEstoque, taxaComercializacao);
+                            break;
+
+                        case 4:
+                            System.out.println("\n----- Seguro eletrônico da loja  -----\n");
+                            System.out.println("\n----- Digite o valor do seguro de eletrônicos da loja  -----\n");
+                            double seguroEletronicos = teclado.nextDouble();
+                            teclado.nextLine();
+
+                            novaLoja = new Informatica(nomeLoja, funcionariosLoja, salarioBase, shoppingAtual.getEndereco(), dataFundacao, tamanhoEstoque, seguroEletronicos);
+                            break;
+
+                        case 5:
+                            System.out.println("\n----- Produtos importados da loja  -----\n");
+                            System.out.println("\n----- Digite se os produtos da loja são importados?  -----\n");
+                            System.out.println(".\t(1) Sim\n");
+                            System.out.println(".\t(2) Não\n");
+
+                            boolean produtosImportados = false;
+
+                            switch (teclado.nextInt()){
+                                case 1:
+                                    produtosImportados = true;
+                                    break;
+                                case 2:
+                                    produtosImportados = false;
+                                    break;
+                            }
+
+                            novaLoja = new Vestuario(nomeLoja, funcionariosLoja, salarioBase, shoppingAtual.getEndereco(), dataFundacao, produtosImportados, tamanhoEstoque);
+                            break;
+
+                        default: System.out.println("\n----- OPÇÃO INVÁLIDA. CRIANDO LOJA GENÉRICA -----\n");
+                        novaLoja = new Loja(nomeLoja, funcionariosLoja, shoppingAtual.getEndereco(), dataFundacao, tamanhoEstoque);
+                            break;
+                    }
+
+                    if (novaLoja != null){
+                        shoppingAtual.insereLoja(novaLoja);
+                        System.out.println("\n" + novaLoja.toString() + "\n");
+                        break;
+                    }
+                    else {System.out.println("\n----- Não foi possível criar a loja. Tente novamente -----\n");}
 
                     break;
                 case 2:
@@ -111,8 +210,19 @@ public class Principal {
                         System.out.println("|\tProduto vencido\n");}
                     else { System.out.println("|\tProduto nao vencido\n");
                     }
+
                     break;
                 case 3:
+                    System.out.println("\n----- Digite o nome da loja que deseja remover  -----\n");
+                    String nomeLojaRemover = teclado.nextLine();
+                    if (shoppingAtual.removeLoja(nomeLojaRemover)){
+                        System.out.println("\n|\tLOJA REMOVIDA COM SUCESSO\n");
+                    } else {
+                        System.out.println("\n|\tNÃO FOI POSSÍVEL REMOVER A LOJA\n");
+                    }
+
+                    break;
+                case 5:
                     System.out.println("----- SAINDO DO PROGRAMA -----");
                     return;
                 default:
