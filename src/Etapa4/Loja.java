@@ -3,7 +3,7 @@ package Etapa4;
 public class Loja {
 
     private String nome;
-    private int salarioBaseFuncionario, quantidadeFuncionarios;
+    private int salarioBaseFuncionario, quantidadeFuncionarios, produtosAdicionados;
     private Endereco endereco;
     private Data dataFundacao;
     private Produto[] estoqueProdutos;
@@ -15,6 +15,7 @@ public class Loja {
         this.endereco = enderecoLoja;
         this.dataFundacao = dataFundacao;
         this.estoqueProdutos = new Produto[capacidadeEstoque];
+        this.produtosAdicionados = 0;
     }
 
     public Loja(String nome, int quantidadeFuncionarios, Endereco enderecoLoja, Data dataFundacao, int capacidadeEstoque){
@@ -24,6 +25,7 @@ public class Loja {
         this.endereco = enderecoLoja;
         this.dataFundacao = dataFundacao;
         this.estoqueProdutos = new Produto[capacidadeEstoque];
+        this.produtosAdicionados = 0;
     }
 
     public String getNome(){
@@ -74,15 +76,19 @@ public class Loja {
         this.estoqueProdutos = estoqueProdutos;
     }
 
-        @Override
+    public int getProdutosAdicionados() {
+        return produtosAdicionados;
+    }
+
+    @Override
         public String toString() {
     return  "|\tNome da Loja: " + this.nome + "\n" +
             "|\tQuantidade de funcionários: " + this.quantidadeFuncionarios + "\n" +
             "|\tSalário base dos funcionários: " + (this.salarioBaseFuncionario == -1 ? "Não informado" : this.salarioBaseFuncionario) + "\n" +
             "|\tEndereço da loja: " + (this.endereco == null ? "Não informado" : this.endereco) + "\n" +
             "|\tData de fundação: " + (this.dataFundacao == null ? "Não informada" : this.dataFundacao) + "\n" +
-            "|\tCapacidade do estoque: " + (this.estoqueProdutos == null ? "Não inicializado" : this.estoqueProdutos.length + " produto(s)");
-
+            "|\tCapacidade do estoque (tipos de produto): " + this.estoqueProdutos.length + " tipo(s)" + "\n" +
+            "|\tTipos de produtos adicionados atualmente: " + this.produtosAdicionados + " tipo(s)\n";
 }
 
     public int gastosComSalario() {
@@ -104,33 +110,62 @@ public class Loja {
     }
 
     public void imprimeProdutos(){
-        for(int i = 0; i < estoqueProdutos.length; i++){
-            if(estoqueProdutos[i] != null){
-                System.out.println(estoqueProdutos[i]);
-            } else {
-                System.out.println("Estoque vazio");
+        if (this.produtosAdicionados == 0) {
+            System.out.println("A loja " + this.nome + " não possui produtos em estoque\n");
+            return;
+        }
+        System.out.println("\n--- Produtos em estoque da loja '" + this.nome + " ---");
+        for (int i = 0; i < this.produtosAdicionados; i++) {
+            if (this.estoqueProdutos[i] != null) {
+                System.out.println(this.estoqueProdutos[i].toString());
             }
         }
+        System.out.println("----------------------------------------\n");
     }
 
     public boolean insereProduto(Produto produto){
-        for(int i = 0; i < estoqueProdutos.length; i++){
-            if(estoqueProdutos[i] == null){
-                estoqueProdutos[i] = produto;
+        for(int i = 0; i < this.produtosAdicionados; i++) {
+            if (estoqueProdutos[i] != null && estoqueProdutos[i].getNome().equalsIgnoreCase(produto.getNome())) {
+                this.estoqueProdutos[i].setQuantidadeProduto(produto.getQuantidadeProduto() + estoqueProdutos[i].getQuantidadeProduto());
+                System.out.println("Quantidade do produto '" + produto.getNome() + "' atualizada para: " + this.estoqueProdutos[i].getQuantidadeProduto() + " na loja '" + this.nome + "'.");
                 return true;
             }
         }
-        System.out.println("Estoque cheio");
+
+        if (this.produtosAdicionados < this.estoqueProdutos.length){
+                this.estoqueProdutos[this.produtosAdicionados] = produto;
+                this.produtosAdicionados++;
+                System.out.println("Novo tipo de produto '" + produto.getNome() + "' (quantidade: " + produto.getQuantidadeProduto() + ") adicionado à loja '" + this.nome + "'.");
+                return true;
+            }
+
+        System.out.println("Estoque da loja " + this.nome + " está cheio");
         return false;
     }
 
-    public boolean removeProduto(String nomeProduto){
-        for(int i = 0; i <estoqueProdutos.length; i++){
-            if(estoqueProdutos[i] != null && estoqueProdutos[i].getNome().equals(nomeProduto)){
-                estoqueProdutos[i] = null;
-                return true;
+    public boolean removeProduto(String nomeProduto, int quantidadeRemover){
+        for(int i = 0; i < this.produtosAdicionados; i++){
+            if(this.estoqueProdutos[i] != null && estoqueProdutos[i].getNome().equalsIgnoreCase(nomeProduto)){
+                if(estoqueProdutos[i].getQuantidadeProduto() >= quantidadeRemover){
+                    this.estoqueProdutos[i].setQuantidadeProduto(this.estoqueProdutos[i].getQuantidadeProduto() - quantidadeRemover);
+                    System.out.println("Quantidade de " + nomeProduto + "(s)" + " da loja " + this.nome + " para " + this.estoqueProdutos[i].getQuantidadeProduto());
+
+                    if (this.estoqueProdutos[i].getQuantidadeProduto() == 0) {
+                        System.out.println("Produto '" + nomeProduto + "' esgotado e removido do catálogo da loja.\n");
+                        for (int j = i; j < this.produtosAdicionados -1; j++) {
+                            this.estoqueProdutos[j] = this.estoqueProdutos[j+1];
+                        }
+                        this.estoqueProdutos[this.produtosAdicionados - 1] = null;
+                        this.produtosAdicionados--;
+                    }
+                    return true;
+                } else {
+                    System.out.println("Não há quantidade suficiente de '" + nomeProduto + "' para remover " + quantidadeRemover + " unidades na loja '" + this.nome + "'. Disponível: " + this.estoqueProdutos[i].getQuantidadeProduto() + "\n");
+                    return false;
+                }
             }
         }
+        System.out.println("Produto " + nomeProduto + " não encontrado no estoque da loja " + this.nome);
         return false;
     }
 }

@@ -101,6 +101,15 @@ public class Shopping{
         return lojaMaisCara;
     }
 
+    public Loja buscarLojaNome (String nomeLoja){
+        for(int i = 0; i<lojas.length; i++){
+            if (this.lojas[i] != null && this.lojas[i].getNome().equalsIgnoreCase(nomeLoja)){
+                return this.lojas[i];
+            }
+        }
+        return null;
+    }
+
     @Override
     public String toString(){
         return "|\tNome: " + nome + "\n" + "|\tEndereco: " + endereco + "\n" + "|\tLojas:";

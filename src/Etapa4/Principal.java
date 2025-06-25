@@ -11,7 +11,7 @@ public class Principal {
         System.out.println("Digite um número:");
         System.out.println("1 - Sim\n2 - Não");
         opcao = teclado.nextInt();
-        teclado.nextLine(); // Limpa o buffer
+        teclado.nextLine(); // Limpa o buffer2
         while (true) {
             if (opcao == 1) {
                 break;
@@ -63,11 +63,11 @@ public class Principal {
                 case 1:
                     System.out.println("\n----- Digite o nome da loja  -----\n");
                     String nomeLoja = teclado.nextLine();
-                    
+
                     System.out.println("\n----- Digite a quantidade de funcionarios da loja  -----\n");
                     int funcionariosLoja = teclado.nextInt();
                     teclado.nextLine(); // Limpa o buffer
-                    
+
                     System.out.println("\n----- Digite o salario base da loja  -----\n");
                     int salarioBase = teclado.nextInt();
                     teclado.nextLine(); // Limpa o buffer
@@ -91,7 +91,7 @@ public class Principal {
                     System.out.println("\n----- Digite o tipo de loja?  -----\n");
                     System.out.println(".\t(1) Alimentação\n");
                     System.out.println(".\t(2) Bijuteria\n");
-                    System.out.println(".\t(3) Costméticos\n");
+                    System.out.println(".\t(3) Cosméticos\n");
                     System.out.println(".\t(4) Informática\n");
                     System.out.println(".\t(5) Vestuário\n");
                     int tipoLoja = teclado.nextInt();
@@ -166,43 +166,61 @@ public class Principal {
 
                         default: System.out.println("\n----- OPÇÃO INVÁLIDA. CRIANDO LOJA GENÉRICA -----\n");
                         novaLoja = new Loja(nomeLoja, funcionariosLoja, shoppingAtual.getEndereco(), dataFundacao, tamanhoEstoque);
-                            break;
+                        break;
                     }
 
                     if (novaLoja != null){
-                        shoppingAtual.insereLoja(novaLoja);
-                        System.out.println("\n" + novaLoja.toString() + "\n");
-                        break;
+                        if (shoppingAtual.insereLoja(novaLoja)){
+                            System.out.println("\nLoja '" + novaLoja.getNome() + "' criada e adicionada ao shopping com sucesso!\n");
+                            System.out.println(novaLoja + "\n");
+                        } else {
+                            System.out.println("\n----- Não foi possível adicionar a loja. Verifique se o shopping está cheio ou se já existe uma loja com o mesmo nome. -----\n");
+                        }
+                    } else {
+                        System.out.println("\n----- Não foi possível criar a loja (opção de tipo inválida). Tente novamente -----\n");
                     }
-                    else {System.out.println("\n----- Não foi possível criar a loja. Tente novamente -----\n");}
-
                     break;
                 case 2:
-                    System.out.println("\n----- Digite o nome do produto  -----\n");
+                    System.out.println("\n----- Digite o nome do produto:  -----\n");
                     String nomeProduto = teclado.nextLine();
 
-                    System.out.println("\n----- Digite o preco do produto  -----\n");
-                    int precoProduto = teclado.nextInt();
+                    System.out.println("\n----- Digite o preco do produto:  -----\n");
+                    double precoProduto = teclado.nextDouble();
                     teclado.nextLine();
 
                     System.out.println("\n----- Validade do produto  -----");
-                    System.out.println("\n----- Digite o dia da validade  -----\n");
+                    System.out.println("\n----- Digite o dia da validade: -----\n");
                     int diaValidade = teclado.nextInt();
                     teclado.nextLine();
 
-                    System.out.println("\n----- Digite o mes da validade  -----\n");
+                    System.out.println("\n----- Digite o mes da validade: -----\n");
                     int mesValidade = teclado.nextInt();
                     teclado.nextLine();
 
-                    System.out.println("\n----- Digite o ano da validade  -----\n");
+                    System.out.println("\n----- Digite o ano da validade: -----\n");
                     int anoValidade = teclado.nextInt();
+                    teclado.nextLine();
+
+                    System.out.println("\n----- Digite a quantidade do produto: -----\n");
+                    int quantidadeProduto = teclado.nextInt();
                     teclado.nextLine();
 
                     Data dataValidadeProduto = new Data(diaValidade, mesValidade, anoValidade);
 
-                    Produto produto = new Produto(nomeProduto, precoProduto, dataValidadeProduto);
+                    System.out.println("\n----- Digite o nome da loja que deseja adicionar o produto:  -----\n");
+                    String nomeLojaProduto = teclado.nextLine();
 
-                    System.out.println("\n" + produto.toString() + "\n");
+                    Loja lojaAlvo = shoppingAtual.buscarLojaNome(nomeLojaProduto);
+
+                    Produto produto = new Produto(nomeProduto, precoProduto, dataValidadeProduto, quantidadeProduto);
+
+                    if (lojaAlvo != null) {
+                        lojaAlvo.insereProduto(produto);
+                    } else {
+                        System.out.println("Loja '" + nomeLojaProduto + "' não encontrada no shopping. Produto não adicionado.\n");
+                    }
+
+                    System.out.println("\n" + produto + "\n");
 
                     Data dataReferencia = new Data(20,10, 2023);
 

@@ -3,13 +3,15 @@ package Etapa4;
 public class Produto {
 
     private String nome;
-    private int preco;
+    private int quantidadeProduto;
+    private double preco;
     private Data dataValidade;
 
-    public Produto(String nome, int preco, Data dataValidade){
+    public Produto(String nome, double preco, Data dataValidade,  int quantidadeProduto) {
         this.nome = nome;
         this.preco = preco;
         this.dataValidade = dataValidade;
+        this.quantidadeProduto = quantidadeProduto;
     }
 
     public String getNome(){
@@ -20,11 +22,11 @@ public class Produto {
         this.nome = nome;
     }
 
-    public int getPreco(){
+    public double getPreco(){
         return preco;
     }
 
-    public void setPreco(int preco){
+    public void setPreco(double preco){
         this.preco = preco;
     }
 
@@ -36,9 +38,18 @@ public class Produto {
         this.dataValidade = dataValidade;
     }
 
+    public int getQuantidadeProduto() {
+        return quantidadeProduto;
+    }
+
+    public void setQuantidadeProduto(int quantidadeProduto) {
+        this.quantidadeProduto = quantidadeProduto;
+    }
+
+
     @Override
     public String toString(){
-        return "|\tNome: " + nome + "\n" + "|\tPreco: " + preco + "\n" + "|\tData de validade: " + dataValidade;
+        return "|\tNome: " + nome + "\n" + "|\tPreco: " + preco + "\n" + "|\tData de validade: " + dataValidade + "\n" + "|\tQuantidade: " + quantidadeProduto + "\n";
     }
 
     public boolean estaVencido (Data dataReferencia) {
