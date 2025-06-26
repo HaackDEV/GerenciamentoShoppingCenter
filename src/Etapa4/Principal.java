@@ -1,4 +1,5 @@
 package Etapa4;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Principal {
@@ -237,6 +238,29 @@ public class Principal {
                         System.out.println("\n|\tLOJA REMOVIDA COM SUCESSO\n");
                     } else {
                         System.out.println("\n|\tNÃO FOI POSSÍVEL REMOVER A LOJA\n");
+                    }
+
+                    break;
+                case 4:
+                    System.out.println("\n----- Digite o nome da loja que tem o produto: -----\n");
+                    String nomeLojaProdutoRemover = teclado.nextLine();
+
+                    Loja lojaAlvoRemover = shoppingAtual.buscarLojaNome(nomeLojaProdutoRemover);
+
+                    if (lojaAlvoRemover != null){
+                        System.out.println("\n----- Digite o nome do produto que deseja remover  -----\n");
+                        String nomeProdutoRemover = teclado.nextLine();
+                        System.out.println("\n----- Digite a quantidade que deseja remover  -----\n");
+                        int quantidadeProdutoRemover = teclado.nextInt();
+                        teclado.nextLine();
+
+                        if (lojaAlvoRemover.removeProduto(nomeProdutoRemover, quantidadeProdutoRemover)){
+                            System.out.println("\n|\tPRODUTO REMOVIDO COM SUCESSO\n");
+                        } else {
+                            System.out.println("\n|\tNÃO FOI POSSÍVEL REMOVER O PRODUTO\n");
+                        }
+                    } else {
+                        System.out.println("\nLoja '" + nomeLojaProdutoRemover + "' não encontrada no shopping. Produto não removido.\n");
                     }
 
                     break;
